@@ -1,0 +1,62 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>
+     Todo
+    </ion-title>
+    <ion-buttons end>
+  <button ion-button icon-only (click)="addTodo()">
+    <ion-icon name="add"></ion-icon>
+  </button>
+</ion-buttons>
+  </ion-navbar>
+</ion-header>
+
+
+<ion-content>
+<div padding>
+  <ion-segment [(ngModel)]="todoStatus">
+    <ion-segment-button value="Todo">
+      Todo
+    </ion-segment-button>
+    <ion-segment-button value="Completed">
+      Completed
+    </ion-segment-button>
+  </ion-segment>
+</div>
+
+<div [ngSwitch]="todoStatus">
+  <ion-list *ngSwitchCase="'Todo'">
+   <ion-card *ngFor="let todoItem of todoList | async" (click)="showOptions(todoItem.$key, todoItem.Name,todoItem.StartDate,todoItem.StartTime,todoItem.StartPoint,todoItem.EndPoint,todoItem.Remarks)">
+<ion-card-header >
+  <div class="bar bar-header bar-positive">
+  <h1 class="title">{{todoItem.Name}} </h1>
+</div>
+     </ion-card-header>
+    <ion-card-content>
+    {{todoItem.StartDate}}   {{todoItem.StartTime}}<br>
+    <b>{{todoItem.StartPoint}}</b> to  <b>{{todoItem.EndPoint}}</b><br>
+    {{todoItem.Remarks}}<br>
+ </ion-card-content>
+  </ion-card>
+  </ion-list>
+
+  <ion-list *ngSwitchCase="'Completed'">
+   <ion-card *ngFor="let todoItem of completedList | async" (click)="showOptions(todoItem.$key, todoItem.Name,todoItem.StartDate,todoItem.StartTime,todoItem.StartPoint,todoItem.EndPoint,todoItem.Remarks)">
+<ion-card-header >
+  <div class="bar bar-header bar-positive">
+  <h1 class="title">{{todoItem.Name}} </h1>
+</div>
+     </ion-card-header>
+    <ion-card-content>
+    {{todoItem.StartDate}}   {{todoItem.StartTime}}<br>
+    <b>{{todoItem.StartPoint}}</b> to  <b>{{todoItem.EndPoint}}</b><br>
+    {{todoItem.Remarks}}<br>
+ </ion-card-content>
+  </ion-card>
+  </ion-list>
+</div>
+
+
+
+
+</ion-content>

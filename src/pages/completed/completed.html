@@ -1,0 +1,29 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>
+     Completed
+    </ion-title>
+    <ion-buttons end>
+  <button ion-button  (click)="viewHome()">
+     <ion-icon name="md-checkmark-circle">Home</ion-icon>
+     </button>
+</ion-buttons>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+
+  <ion-card *ngFor="let todoItem of completedList | async" (click)="showOptions(todoItem.$key, todoItem.Name,todoItem.StartDate,todoItem.StartTime,todoItem.StartPoint,todoItem.EndPoint,todoItem.Remarks)">
+<ion-card-header >
+  <div class="bar bar-header bar-positive">
+  <h1 class="title">{{todoItem.Name}} </h1>
+</div>
+     </ion-card-header>
+    <ion-card-content>
+    {{todoItem.StartDate}}   {{todoItem.StartTime}}<br>
+    <b>{{todoItem.StartPoint}}</b> to  <b>{{todoItem.EndPoint}}</b><br>
+    {{todoItem.Remarks}}<br>
+ </ion-card-content>
+  </ion-card>
+
+</ion-content>
