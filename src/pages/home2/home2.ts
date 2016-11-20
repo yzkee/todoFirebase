@@ -176,6 +176,67 @@ updateTodo(todoId, todoName,todoStartDate, todoStartTime,todoStartPoint,todoEndP
 }
 
 
+updateCompleted(todoId, todoName,todoStartDate, todoStartTime,todoStartPoint,todoEndPoint,todoRemarks){
+  let prompt = this.alertCtrl.create({
+    title: 'Todo Name',
+    message: "Update the details for this item",
+    inputs: [
+      {
+        name: 'Name',
+        placeholder: 'Name',
+        value: todoName
+      },
+       {
+        name: 'StartDate',
+        placeholder: 'StartDate',
+        value: todoStartDate
+      },
+       {
+        name: 'StartTime',
+        placeholder: 'StartTime',
+        value: todoStartTime
+      },
+      {
+        name: 'StartPoint',
+        placeholder: 'StartPoint',
+        value: todoStartPoint
+      },
+      {
+        name: 'EndPoint',
+        placeholder: 'EndPoint',
+        value: todoEndPoint
+      },
+      {
+        name: 'Remarks',
+        placeholder: 'Remarks',
+        value: todoRemarks
+      },
+    ],
+    buttons: [
+      {
+        text: 'Cancel',
+        handler: data => {
+          console.log('Cancel clicked');
+        }
+      },
+      {
+        text: 'Save',
+        handler: data => {
+          this.completedList.update(todoId, {
+            Name: data.Name,
+            StartDate: data.StartDate,
+            StartTime: data.StartTime,
+            StartPoint: data.StartPoint,
+            EndPoint: data.EndPoint,
+            Remarks: data.Remarks,
+          });
+        }
+      }
+    ]
+  });
+  prompt.present();
+}
+
 showOptions(todoId, todoName,todoStartDate,todoStartTime,todoStartPoint,todoEndPoint,todoRemarks) {
   let actionSheet = this.actionSheetCtrl.create({
     title: 'What do you want to do?',
@@ -206,6 +267,41 @@ showOptions(todoId, todoName,todoStartDate,todoStartTime,todoStartPoint,todoEndP
           console.log('Cancel clicked');
         }
       }
+    ]
+  });
+  actionSheet.present();
+}
+
+showOptionsCompleted(todoId, todoName,todoStartDate,todoStartTime,todoStartPoint,todoEndPoint,todoRemarks) {
+  let actionSheet = this.actionSheetCtrl.create({
+    title: 'What do you want to do?',
+    buttons: [
+      {
+        text: 'Delete item',
+        role: 'destructive',
+        handler: () => {
+          this.removeCompleted(todoId);
+        }
+      },{
+        text: 'Update Name',
+        handler: () => {
+          this.updateCompleted(todoId, todoName,todoStartDate,todoStartTime,todoStartPoint,todoEndPoint,todoRemarks);
+        }
+      },{
+        text: 'Cancel',
+        role: 'cancel',
+        handler: () => {
+          console.log('Cancel clicked');
+        }
+      },{
+        text: 'Incomplete',
+        handler: () => {
+          this.addIncomplete(todoName,todoStartDate,todoStartTime,todoStartPoint,todoEndPoint,todoRemarks)
+          this.removeCompleted(todoId);
+          console.log('Cancel clicked');
+        }
+      }
+      
     ]
   });
   actionSheet.present();

@@ -41,16 +41,16 @@
   </ion-list>
 
   <ion-list *ngSwitchCase="'Completed'">
-   <ion-card *ngFor="let todoItem of completedList | async" (click)="showOptions(todoItem.$key, todoItem.Name,todoItem.StartDate,todoItem.StartTime,todoItem.StartPoint,todoItem.EndPoint,todoItem.Remarks)">
+   <ion-card *ngFor="let completedItem of completedList | async" (click)="showOptionsCompleted(completedItem.$key, completedItem.Name,completedItem.StartDate,completedItem.StartTime,completedItem.StartPoint,completedItem.EndPoint,completedItem.Remarks)">
 <ion-card-header >
   <div class="bar bar-header bar-positive">
-  <h1 class="title">{{todoItem.Name}} </h1>
+  <h1 class="title">{{completedItem.Name}} </h1>
 </div>
      </ion-card-header>
     <ion-card-content>
-    {{todoItem.StartDate}}   {{todoItem.StartTime}}<br>
-    <b>{{todoItem.StartPoint}}</b> to  <b>{{todoItem.EndPoint}}</b><br>
-    {{todoItem.Remarks}}<br>
+    {{completedItem.StartDate}}   {{completedItem.StartTime}}<br>
+    <b>{{completedItem.StartPoint}}</b> to  <b>{{completedItem.EndPoint}}</b><br>
+    {{completedItem.Remarks}}<br>
  </ion-card-content>
   </ion-card>
   </ion-list>
